@@ -1,13 +1,9 @@
 import streamlit as st
 import pandas as pd
 
-df_poster = pd.read_csv('/Users/julien/cinema/df_reco.csv')
-df_poster.to_parquet('/Users/julien/cinema/df_poster.parquet')
+df_poster = pd.read_parquet('df_reco.parquet')
 
-df_reco = pd.read_csv('/Users/julien/cinema/resultat.csv')
-df_reco.to_parquet('/Users/julien/cinema/df_reco.parquet')
-
-
+df_reco = pd.read_parquet('resultat.csv.parquet')
 
 
 option = st.selectbox(
