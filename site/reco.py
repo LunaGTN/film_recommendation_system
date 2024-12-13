@@ -31,7 +31,7 @@ if option:
             f"""
             <div style="text-align: center;">
                 <h2>Film sélectionné</h2>
-                <p>{df_poster['titre'].iloc[recherche]}</p>
+                <p><strong>{df_poster['titre'].iloc[recherche]}</strong></p>
                 <img src="{poster_url}" alt="Poster" style="width: 250px;">
                 <p>📅 <strong>Année :</strong> {df_poster['année'].iloc[recherche]}</p>
                 <p>🎥 <strong>Réalisateur :</strong> {df_poster['Real'].iloc[recherche]}</p>
@@ -66,7 +66,7 @@ if option:
         # Affichage des recommandations dans les colonnes
         for i, (titre, annee, realisateur, poster_path) in enumerate(zip(titres, annee, real, poster)):
             with columns[i % 5]:  # Répartir les films sur 5 colonnes
-                st.text(f"{titre}")
+                st.markdown(f"**{titre}**")
                 if poster_path is None :
                  st.image("/Users/julien/cinema/logo_sans_fond.png", width=150)
                 else:
