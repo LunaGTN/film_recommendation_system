@@ -1,2 +1,3 @@
 *.csv
 perso.ipynb
+*.parquet
