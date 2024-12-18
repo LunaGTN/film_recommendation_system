@@ -2,25 +2,25 @@ def afficher_reco():
     import streamlit as st
     import pandas as pd
    
-    df_poster = pd.read_parquet('/Users/julien/cinema/df_poster.parquet')
-    df_reco = pd.read_parquet('/Users/julien/cinema/df_reco.parquet')
+    df_poster = pd.read_parquet('poster.parquet')
+    df_reco = pd.read_parquet('reco.parquet')
 
     col1, col2, col3 = st.columns([2, 3, 2])  # Centrer et définir les proportions
     with col2:
         option = st.selectbox(
             "",
-            options=df_poster["titre"],
+            options=df_poster["id"],
             format_func=lambda x: x if st.session_state.get("search_query", "").lower() in x.lower() else None, index=None, placeholder="Choisissez un film"
         )
     image_url = "https://image.tmdb.org/t/p/original"
 
     if option:
-        resultat = df_reco.loc[df_reco["titre"] == option]
+        resultat = df_reco.loc[df_reco["id"] == option]
         if not resultat.empty: 
             # Recherche de l'index de la source
             recherche = resultat["source"].iloc[0]
             if df_poster['poster_path'].iloc[recherche] is None:
-                poster_url = "file:///Users/julien/cinema/logo_sans_fond.png"
+                poster_url = "logo_sans_fond.png"
             else:
                 poster_url = image_url + df_poster['poster_path'].iloc[recherche]
 
@@ -29,7 +29,7 @@ def afficher_reco():
                 f"""
                 <div style="text-align: center;">
                     <h2>Film sélectionné</h2>
-                    <p><strong>{df_poster['titre'].iloc[recherche]}</strong></p>
+                    <p><strong>{df_poster['id'].iloc[recherche]}</strong></p>
                     <img src="{poster_url}" alt="Poster" style="width: 250px;">
                     <p>📅 <strong>Année :</strong> {df_poster['année'].iloc[recherche]}</p>
                     <p>🎥 <strong>Réalisateur :</strong> {df_poster['Real'].iloc[recherche]}</p>
@@ -56,7 +56,7 @@ def afficher_reco():
             
             # Récupération des recommandations
             recos = list(resultat[["r1", "r2", "r3", "r4", "r5"]].values)[0]
-            titres = df_poster["titre"].iloc[recos].tolist()
+            titres = df_poster["id"].iloc[recos].tolist()
             annee = df_poster["année"].iloc[recos].tolist()
             real = df_poster["Real"].iloc[recos].tolist()
             poster = df_poster["poster_path"].iloc[recos].tolist()
@@ -66,7 +66,7 @@ def afficher_reco():
                 with columns[i % 5]:  # Répartir les films sur 5 colonnes
                     st.markdown(f"**{titre}**")
                     if poster_path is None :
-                        st.image("/Users/julien/cinema/logo_sans_fond.png", width=150)
+                        st.image("logo_sans_fond.png", width=150)
                     else:
                         st.image(f"{image_url}{poster_path}", width=150)
                         st.text(f"📅 Année : {annee}")
