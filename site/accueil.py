@@ -70,7 +70,7 @@ if st.session_state.page == "accueil":
     # Disposition de l'image du logo (centrée sur la page)
     col1, col2, col3 = st.columns([3, 2, 3])  # Création de trois colonnes de largeur relative (col2 sera au centre)
     with col2:  # Affichage de l'image dans la colonne du centre
-        st.image("logo_sans_fond.png", width=150)  # L'image est redimensionnée à 10% de sa largeur d'origine
+        st.image("site/logo_sans_fond.png", width=150)  # L'image est redimensionnée à 10% de sa largeur d'origine
 
     # Texte d'accueil
     st.markdown("<p> Bienvenue sur Nearest Movie, le site qui vous recommandera des films selon vos envies !</p>", unsafe_allow_html=True)
