@@ -1,6 +1,6 @@
 import streamlit as st
-from reco import afficher_reco  
-from viz import afficher_viz    
+from site.reco import afficher_reco  
+from site.viz import afficher_viz    
 
 # Configuration de la page Streamlit
 st.set_page_config(

@@ -6,10 +6,10 @@ def afficher_viz():
     import plotly.express as px
     import plotly.graph_objects as go
     # Chargement des données depuis des fichiers CSV
-    df_top_pays = pd.read_csv("Top_pays.csv")
-    df_time = pd.read_csv("df_time.csv")
-    df_pop_note = pd.read_csv("df_pop_note.csv")
-    df_real = pd.read_csv("df_film_filtre.csv")
+    df_top_pays = pd.read_csv("site/Top_pays.csv")
+    df_time = pd.read_csv("site/df_time.csv")
+    df_pop_note = pd.read_csv("site/df_pop_note.csv")
+    df_real = pd.read_csv("site/df_film_filtre.csv")
 
     # Disposition des colonnes pour l'affichage avec Streamlit
     col1, col2 = st.columns([1, 1])
