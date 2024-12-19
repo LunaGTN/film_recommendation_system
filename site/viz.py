@@ -2,9 +2,8 @@ def afficher_viz():
     # Importation des bibliothèques nécessaires
     import streamlit as st
     import pandas as pd
-    import matplotlib.pyplot as plt
     import plotly.express as px
-    import plotly.graph_objects as go
+   
     # Chargement des données depuis des fichiers CSV
     df_top_pays = pd.read_csv("site/Top_pays.csv")
     df_time = pd.read_csv("site/df_time.csv")

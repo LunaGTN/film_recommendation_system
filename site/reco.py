@@ -98,7 +98,7 @@ def afficher_reco():
                 with columns[i % 5]:  # Répartir les films sur 5 colonnes
                     st.markdown(f"{titre_no_date_reco}", unsafe_allow_html=True )
                     if poster_path is None :
-                        st.image("logo_sans_fond.png", width=150)
+                        st.image("site/logo_sans_fond.png", width=150)
                         st.text(f"📅 Année : {annee}")
                         st.text(f"🎥 Réalisateur : {realisateur}")
                     else:
