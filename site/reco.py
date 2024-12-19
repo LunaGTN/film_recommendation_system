@@ -1,7 +1,6 @@
-import streamlit as st
-import pandas as pd
-
 def afficher_reco():
+    import streamlit as st
+    import pandas as pd
     df_poster = pd.read_parquet('poster.parquet')
     df_reco = pd.read_parquet('reco.parquet')
 
