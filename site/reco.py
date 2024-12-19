@@ -18,46 +18,49 @@ def afficher_reco():
         </style>""", unsafe_allow_html=True)
 
     st.markdown("<p>Soirée entre amis, film en solo, en couple ou en famille ?</p>", unsafe_allow_html = True)
-    #st.markdown("""
-    #<div style="display: flex; justify-content: center; align-items: center; margin-top: 20px;">
-       # <iframe src="https://giphy.com/embed/KzzQ0lEye5zhwlPajK" width="480" height="360" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
-    #</div>
-    #""", unsafe_allow_html=True)
 
     st.markdown("<p>Tapez le début d’un titre qui vous plaît, choisissez parmi les suggestions, et laissez notre système dénicher 5 films qui pourraient vous divertir!</p>", unsafe_allow_html=True )
 
+    col1, col2 = st.columns([1, 2])  # Centrer et définir les proportions
+    with col1:
+        option_real = st.selectbox(
+            "filtrer par réalisateur",
+            options = df_poster["Real"].unique(),
+            format_func=lambda x: x if st.session_state.get("search_query", "").lower() in x.lower() else None, index=None, placeholder="Choisissez un réalisateur",
+            label_visibility = "hidden"
+        )
 
-    col1, col2, col3 = st.columns([2, 3, 2])  # Centrer et définir les proportions
+        if option_real:
+            variable_options = df_poster["id"].loc[df_poster["Real"] == option_real]    
+        else:
+            variable_options = df_poster["id"]
+
     with col2:
         option = st.selectbox(
             "selection film",
-            options=df_poster["id"],
+            options = variable_options,
             format_func=lambda x: x if st.session_state.get("search_query", "").lower() in x.lower() else None, index=None, placeholder="Choisissez un film",
             label_visibility = "hidden"
         )
     image_url = "https://image.tmdb.org/t/p/original"
 
     if option:
-        resultat = df_reco.loc[df_reco["id"] == option]
-        if not resultat.empty: 
+        resultat = df_reco.loc[df_reco["id"] == option] # Source + reco
+        if not resultat.empty: #S'il y a quelquechose dans la barre
             # Recherche de l'index de la source
-            recherche = resultat["source"].iloc[0]
-            titre_str =  df_poster["id"].iloc[recherche]
-            liste_titre = titre_str.split("-")
-            titre_no_date = " ".join(liste_titre[:-1])
-
-            print(df_poster["id"].iloc[recherche])
-            if df_poster['poster_path'].iloc[recherche] is None:
-                poster_url = "https://i.imghippo.com/files/ZOcN3975ToU.png"
+            recherche = resultat["source"].iloc[0] #Récupère l'index du film "option"
+            titre_str =  df_poster["titre"].iloc[recherche] #Renvoie l'id du film "option"
+            if df_poster['poster_path'].iloc[recherche] is None: # Si pas de poster
+                poster_url = "https://i.imghippo.com/files/ZOcN3975ToU.png" #Affiche le logo
             else:
-                poster_url = image_url + df_poster['poster_path'].iloc[recherche]
+                poster_url = image_url + df_poster['poster_path'].iloc[recherche] #Sinon, l'image du film
 
             # **Affichage du premier film (au-dessus des recommandations)**
             st.markdown(
                 f"""
                 <div style="text-align: center;">
                     <h2>Film sélectionné</h2>
-                    <p><strong>{titre_no_date}</strong></p>
+                    <p><strong>{titre_str}</strong></p>
                     <img src="{poster_url}" alt="Poster" style="width: 250px;">
                     <p>📅 <strong>Année :</strong> {df_poster['année'].iloc[recherche]}</p>
                     <p>🎥 <strong>Réalisateur :</strong> {df_poster['Real'].iloc[recherche]}</p>
