@@ -1,8 +1,8 @@
 def afficher_reco():
     import streamlit as st
     import pandas as pd
-    df_poster = pd.read_parquet('poster.parquet')
-    df_reco = pd.read_parquet('reco.parquet')
+    df_poster = pd.read_parquet('site/poster.parquet')
+    df_reco = pd.read_parquet('site/reco.parquet')
 
     st.markdown("""
         <style>
