@@ -1,6 +1,4 @@
-pip
 streamlit
 pandas
 plotly.express
-re
 requests
