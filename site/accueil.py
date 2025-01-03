@@ -48,6 +48,10 @@ if st.session_state.page == "accueil":
             margin-bottom: 70px;
         }
         
+        h2 {
+                text-align: center;
+            }
+        
         /* Style pour le texte */
         p {
             text-align: center;
@@ -65,7 +69,7 @@ if st.session_state.page == "accueil":
     """, unsafe_allow_html=True)
 
     # Titre principal de la page d'accueil
-    st.markdown(f"""<h1>Nearest Movies</h1>""", unsafe_allow_html=True)  # Affiche le titre "Nearest Movies" avec une taille de police personnalisée
+    st.markdown("<h1>Nearest Movies</h1>", unsafe_allow_html=True)  # Affiche le titre "Nearest Movies" avec une taille de police personnalisée
 
     # Disposition de l'image du logo (centrée sur la page)
     col1, col2, col3 = st.columns([3, 2, 3])  # Création de trois colonnes de largeur relative (col2 sera au centre)
@@ -73,7 +77,7 @@ if st.session_state.page == "accueil":
         st.image("site/logo_sans_fond.png", width=150)  # L'image est redimensionnée à 10% de sa largeur d'origine
 
     # Texte d'accueil
-    st.subheader("Bienvenue sur Nearest Movie, le site qui vous recommandera des films selon vos envies !")
+    st.markdown("<h2>Bienvenue sur Nearest Movie, le site qui vous recommandera des films selon vos envies ! </h2>", unsafe_allow_html=True)
 
     # Description détaillée de la plateforme et de ses fonctionnalités
     st.markdown("""
