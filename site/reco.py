@@ -1,9 +1,22 @@
 def afficher_reco():
     import streamlit as st
     import pandas as pd
+    import re
+    import requests
 
-    df_poster = pd.read_parquet('site/poster_ancien.parquet')
-    df_reco = pd.read_parquet('site/reco.parquet')
+    @st.cache_data
+    def getposter():
+        return pd.read_parquet('site/poster_ancien.parquet')
+    @st.cache_data
+    def getreco():
+        return pd.read_parquet('site/reco.parquet')
+    @st.cache_data
+    def getgemini():
+        return pd.read_parquet('site/gemini_id.csv')
+    
+    df_poster = getposter()
+    df_reco = getreco()
+    df_gemini = getgemini()
 
     st.markdown("""
         <style>
@@ -116,3 +129,90 @@ def afficher_reco():
     else:
         with col2:
             st.info("Veuillez chercher un film.")
+
+
+    def dataframe_to_context(df):
+        # Transformer chaque ligne en une phrase descriptive
+        context = "\n".join(
+            df.apply(
+                lambda row: (
+                    f"{row['id']}"
+                ),
+                axis=1,
+            )
+        )
+        return f"Voici les films disponibles :\n{context}"
+
+    context = dataframe_to_context(df_gemini)
+
+    # Interface utilisateur
+    st.title("Recommandez-moi un film 🎥")
+    user_query = st.text_input("Quel type de film voulez-vous regarder ?")
+
+    if user_query:  # Assurer que user_query n'est pas vide
+        url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent"
+        api_key = st.secrets["api"]
+        payload = {
+            "contents": [
+                {
+                    "parts": [
+                        {"text": f"""Je cherche des films qui correspondent à la demande suivante : {user_query}.
+                        Pour chaque film de cette liste {context}, assure-toi qu'il correspond bien à la demande en termes de genre, d'intrigue, ou d'autres critères.
+                        Affiche les ID des 5 films qui correspondent le mieux tel qui sont exactement écris dans {context}, et rien d'autre, sous forme de liste et n'écris rien d'autres."""}
+                    ]
+                }
+            ]
+        }
+
+        headers = {
+            "Content-Type": "application/json"
+        }
+
+        response = requests.post(url, headers=headers, json=payload, params={"key": api_key})
+        
+        response_json = response.json()
+        films_text = response_json['candidates'][0]['content']['parts'][0]['text']
+
+        cleaned_text = re.sub(r'\*', '', films_text)
+        film_titles = cleaned_text.strip().splitlines()
+
+        # Créer une liste pour stocker les titres trouvés dans le DataFrame
+        titre_gemini = []
+        annee_gemini = []
+        real_gemini = []
+        poster_gemini = []
+    
+    # Filtrer le DataFrame pour chaque titre extrait et ajouter les résultats
+        for el in film_titles:
+            el = el.strip()
+            filtered_df = df_poster[df_poster['id'] == el]
+
+            if not filtered_df.empty:  # Vérifier si le DataFrame n'est pas vide
+                titre_gemini.append(filtered_df['titre'].values[0])
+                annee_gemini.append(filtered_df['année'].values[0])
+                real_gemini.append(filtered_df['Real'].values[0])
+                poster_gemini.append(filtered_df['poster_path'].values[0])
+
+        # Si aucun film n'a été trouvé, afficher un message d'avertissement
+        if not titre_gemini:
+            st.warning("Aucun film trouvé correspondant à votre recherche.")
+        else:
+            columns = st.columns(5)
+
+            # Affichage des recommandations dans les colonnes
+            for i, (titre_g, annee_g, realisateur_g, poster_path_g) in enumerate(zip(titre_gemini, annee_gemini, real_gemini, poster_gemini)):
+                with columns[i % 5]:  # Répartir les films sur 5 colonnes
+                    st.markdown(f"{titre_g}", unsafe_allow_html=True)
+
+                    # Vérification si le poster est disponible
+                    if not poster_path_g:
+                        st.image("site/logo_sans_fond.png", width=150)  # Afficher une image par défaut si aucun poster n'est trouvé
+                    else:
+                        st.image(f"{image_url}{poster_path_g}", width=150)  # Afficher l'image du poster
+
+                    # Affichage des autres informations
+                    st.text(f"📅 Année : {annee_g}")
+                    st.text(f"🎥 Réalisateur : {realisateur_g}")
+
+    else:
+        st.warning("Veuillez entrer un type de film pour obtenir des recommandations.")
