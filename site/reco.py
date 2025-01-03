@@ -26,15 +26,22 @@ def afficher_reco():
             font-size: 20px;
             color: white;
         }
+                
+        h3 {
+            text_align: center; }
         iframe {
                 text-align: center;
                 }
         </style>""", unsafe_allow_html=True)
 
+
     st.markdown("<p>Soirée entre amis, film en solo, en couple ou en famille ?</p>", unsafe_allow_html = True)
+
+    st.markdown("<h3> Moteur de recommandation </h3>", unsafe_allow_html=True)
 
     st.markdown("<p>Tapez le début d’un titre qui vous plaît, choisissez parmi les suggestions, et laissez notre système dénicher 5 films qui pourraient vous divertir!</p>", unsafe_allow_html=True )
 
+    st.markdown("<p>Un trou de mémoire pour le titre mais vous êtes certain du nom du réalisateur ? La barre de recherche filtrera les titres pour vous. </p>", unsafe_allow_html=True )
     col1, col2 = st.columns([1, 2])  # Centrer et définir les proportions
     with col1:
         option_real = st.selectbox(
@@ -106,8 +113,6 @@ def afficher_reco():
             real = df_poster["Real"].iloc[recos].tolist()
             poster = df_poster["poster_path"].iloc[recos].tolist()
 
-            st.text(recos)
-
             # Affichage des recommandations dans les colonnes
             for i, (titre, annee, realisateur, poster_path) in enumerate(zip(titres, annee, real, poster)):
                 liste_titre_reco = titre.split("-")
@@ -146,7 +151,8 @@ def afficher_reco():
     context = dataframe_to_context(df_gemini)
 
     # Interface utilisateur
-    st.title("Recommandez-moi un film 🎥")
+    st.subheader("Demandez à l'IA 🤖")
+    st.text("Vous ne savez pas précisément quel film vous inspire ? Demandez à l'IA un genre, un thème, un réalisateur ! Essayez donc avec 'film de sorcier', ou 'Tim Burton' par exemple. Le choix de film avec notre Robot est limité, si vous avez un film en tête, tapez le dans la barre de recherche ⬆️")
     user_query = st.text_input("Quel type de film voulez-vous regarder ?")
 
     if user_query:  # Assurer que user_query n'est pas vide
