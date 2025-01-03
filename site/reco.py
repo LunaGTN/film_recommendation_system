@@ -12,7 +12,7 @@ def afficher_reco():
         return pd.read_parquet('site/reco.parquet')
     @st.cache_data
     def getgemini():
-        return pd.read_parquet('site/gemini_id.csv')
+        return pd.read_csv('site/gemini_id.csv')
     
     df_poster = getposter()
     df_reco = getreco()
