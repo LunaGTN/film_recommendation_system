@@ -68,13 +68,15 @@ if st.session_state.page == "accueil":
         </style>
     """, unsafe_allow_html=True)
 
-    # Titre principal de la page d'accueil
-    st.markdown("<h1>Nearest Movies</h1>", unsafe_allow_html=True)  # Affiche le titre "Nearest Movies" avec une taille de police personnalisée
+    
 
     # Disposition de l'image du logo (centrée sur la page)
     col1, col2, col3 = st.columns([3, 2, 3])  # Création de trois colonnes de largeur relative (col2 sera au centre)
-    with col2:  # Affichage de l'image dans la colonne du centre
+    with col1:  # Affichage de l'image dans la colonne du centre
         st.image("site/logo_sans_fond.png", width=150)  # L'image est redimensionnée à 10% de sa largeur d'origine
+    with col2:
+        # Titre principal de la page d'accueil
+        st.markdown("<h1>Nearest Movies</h1>", unsafe_allow_html=True)  # Affiche le titre "Nearest Movies" avec une taille de police personnalisée
 
     # Texte d'accueil
     st.markdown("<h2>Bienvenue sur Nearest Movie, le site qui vous recommandera des films selon vos envies ! </h2>", unsafe_allow_html=True)
