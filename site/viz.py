@@ -193,8 +193,9 @@ def afficher_viz():
         # Affichage du poids du réalisateur
         st.markdown("""
         #### <h4 style="text-align:center;">**Réalisateur**</h4>  
-        Aucun poids n’a été attribué au réalisateur dans l’algorithme, car la majorité des cinéastes n’ayant réalisé qu’un seul film (5), il est difficile d’établir des conclusions fiables sur leur style ou leur influence. Par ailleurs, un spectateur n’apprécie pas toujours un film en raison de son réalisateur, mais aussi en fonction de son genre ou de ses thématiques.
-Cela pourrait fausser les recommandations en favorisant uniquement les réalisateurs populaires et en omettant ceux qui pourraient aussi correspondre aux préférences des spectateurs.
+        Aucun poids n’a été attribué au réalisateur dans l’algorithme, car la majorité des cinéastes n’ayant réalisé qu’un seul film (5), il est difficile d’établir des conclusions fiables sur leur style ou leur influence.
+        Par ailleurs, un spectateur n’apprécie pas toujours un film en raison de son réalisateur, mais aussi en fonction de son genre ou de ses thématiques.
+        Cela pourrait fausser les recommandations en favorisant uniquement les réalisateurs populaires et en omettant ceux qui pourraient aussi correspondre aux préférences des spectateurs.
   
         """, unsafe_allow_html=True)
 
