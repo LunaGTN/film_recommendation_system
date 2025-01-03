@@ -71,7 +71,7 @@ if st.session_state.page == "accueil":
     
 
     # Disposition de l'image du logo (centrée sur la page)
-    col1, col2, col3 = st.columns([3, 4, 1])  # Création de trois colonnes de largeur relative (col2 sera au centre)
+    col1, col2, col3 = st.columns([2, 4, 1])  # Création de trois colonnes de largeur relative (col2 sera au centre)
     with col1:  # Affichage de l'image dans la colonne du centre
         st.image("site/logo_sans_fond.png", width=150)  # L'image est redimensionnée à 10% de sa largeur d'origine
     with col2:
