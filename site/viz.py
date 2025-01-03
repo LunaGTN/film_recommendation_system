@@ -86,7 +86,6 @@ def afficher_viz():
                     - Moins de **2 500 réalisateurs** en ont réalisé trois ou plus.  
 
                     Nous n’avons appliqué **aucun filtre concernant les réalisateurs**.  
-                    Cependant, malgré le nombre important de réalisateurs avec une filmographie limitée, nous avons choisi d’accorder un **poids significatif à ce critère dans notre algorithme**.  
                     """)
 
     # Début de la colonne 2
@@ -99,7 +98,7 @@ def afficher_viz():
                            values=sizes,
                            names=labels, 
                            color_discrete_sequence=px.colors.sequential.RdBu)
-        cnc_chart.update_layout(title_text='Bilan annuel CNC', title_x=0.4)
+        cnc_chart.update_layout(title_text='Répartition des entrées en salle par nationalité de film', title_x=0.4)
         st.plotly_chart(cnc_chart)
 
         # Explication du graphique CNC
@@ -185,7 +184,7 @@ def afficher_viz():
 
         # Affichage de la pondération de l'année de parution
         st.markdown("""
-        #### <h4 style="text-align:center;">**Poids de l’année de parution**</h4>  
+        #### <h4 style="text-align:center;">**Année de parution**</h4>  
         L’année de parution n’a été ni minorée ni majorée.
         """, unsafe_allow_html=True)
 
@@ -194,8 +193,9 @@ def afficher_viz():
         # Affichage du poids du réalisateur
         st.markdown("""
         #### <h4 style="text-align:center;">**Réalisateur**</h4>  
-        Le réalisateur a bénéficié d’un poids élevé, bien que la plupart n’aient réalisé qu’un seul film (5). Nous avons équilibré cette pondération en tenant compte d’autres critères (année de parution, genre, popularité…) pour garantir une recommandation diverse et pertinente.  
-        Cela met en lumière des réalisateurs ayant une vision artistique particulière tout en offrant une expérience adaptée aux goûts des utilisateurs.  
+        Aucun poids n’a été attribué au réalisateur dans l’algorithme, car la majorité des cinéastes n’ayant réalisé qu’un seul film (5), il est difficile d’établir des conclusions fiables sur leur style ou leur influence. Par ailleurs, un spectateur n’apprécie pas toujours un film en raison de son réalisateur, mais aussi en fonction de son genre ou de ses thématiques.
+Cela pourrait fausser les recommandations en favorisant uniquement les réalisateurs populaires et en omettant ceux qui pourraient aussi correspondre aux préférences des spectateurs.
+  
         """, unsafe_allow_html=True)
 
         # Affichage du poids de la note
