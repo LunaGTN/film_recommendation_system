@@ -73,15 +73,15 @@ if st.session_state.page == "accueil":
         st.image("site/logo_sans_fond.png", width=150)  # L'image est redimensionnée à 10% de sa largeur d'origine
 
     # Texte d'accueil
-    st.markdown("<p> Bienvenue sur Nearest Movie, le site qui vous recommandera des films selon vos envies !</p>", unsafe_allow_html=True)
+    st.subheader("Bienvenue sur Nearest Movie, le site qui vous recommandera des films selon vos envies !")
 
     # Description détaillée de la plateforme et de ses fonctionnalités
     st.markdown("""
         <div style="margin-bottom: 20px;"> Découvrez une plateforme conçue pour vous inspirer et vous guider dans vos choix cinématographiques ! </div>
         <div style="margin-bottom: 15px;">Grâce à une analyse approfondie des données des films du monde entier et d’un algorithme puissant, notre site vous proposera des films similaires à vos coups de cœur 💓</div>
-        <div style="margin-bottom: 15px;">Nous misons sur la transparence de nos choix et de notre algorithme. Vous pourrez donc retrouver tous nos critères ainsi que des graphiques interactifs illustrant les données cinématographiques du monde entier sur l’onglet <span style="text-decoration: underline;"> visualisations </span> </div>
-        <div style="margin-bottom: 15px;">Vous comprendrez alors à quels films vous pourrez avoir accès et comment les recommandations sont faites ! </div>
-        <div style="margin-bottom: 20px;">Sur la page de <span style="text-decoration: underline;"> recommandations </span>, il vous suffit de commencer à écrire le début du titre d’un film, puis de cliquer sur la suggestion qui correspond. Le système de recommandation vous proposera alors 5 films susceptibles de vous plaire.</div>
+        <div style="margin-bottom: 15px;">Nous misons sur la transparence de nos choix et de notre algorithme. Vous pourrez donc retrouver tous nos critères ainsi que des graphiques interactifs illustrant les données cinématographiques du monde entier sur l’onglet <span style="text-decoration: underline;"> visualisations </span> </div>.
+        <div style="margin-bottom: 15px;">Vous comprendrez alors à quels films vous pourrez avoir accès et comment les recommandations sont élaborées ! </div>
+        <div style="margin-bottom: 20px;">Sur la page de <span style="text-decoration: underline;"> recommandations</span>, il vous suffit de commencer à écrire le début du titre d’un film dans la barre de recherche dédiée puis de cliquer sur la suggestion qui correspond. Vous pourrez également effectuer un filtre par nom de réalisateur. Le système de recommandation vous proposera ansuite 5 films susceptibles de vous plaire en fonction de l'oeuvre sélectionnée !.</div>
         <p style="margin-top: 20px;">Que vous soyez amateur de blockbusters, nostalgique des films des années 90, ou fan de cinéma d'auteur, notre outil est là pour enrichir votre univers cinématographique ! </p>
     """, unsafe_allow_html=True)  # Affichage du texte explicatif détaillant les fonctionnalités du site avec des marges personnalisées
 
