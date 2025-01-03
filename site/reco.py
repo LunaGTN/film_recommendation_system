@@ -153,7 +153,7 @@ def afficher_reco():
     # Interface utilisateur
     st.markdown("<h3> Demandez à l'IA 🤖 </h3>", unsafe_allow_html=True)
     st.text("Vous ne savez pas précisément quel film vous inspire ? Demandez à l'IA un genre, un thème, un réalisateur ! Essayez donc avec 'film de sorcier', ou 'Tim Burton' par exemple. Le choix de film avec notre Robot est limité, si vous avez un film en tête, tapez le dans la barre de recherche ⬆️")
-    user_query = st.text_input("Quel type de film voulez-vous regarder ?")
+    user_query = st.text_input(placeholder="Quel type de film voulez-vous regarder ?")
 
     if user_query:  # Assurer que user_query n'est pas vide
         url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent"
