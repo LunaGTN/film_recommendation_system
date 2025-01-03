@@ -6,7 +6,7 @@ def afficher_reco():
 
     @st.cache_data
     def getposter():
-        return pd.read_parquet('site/poster_ancien.parquet')
+        return pd.read_parquet('site/poster.parquet')
     @st.cache_data
     def getreco():
         return pd.read_parquet('site/reco.parquet')

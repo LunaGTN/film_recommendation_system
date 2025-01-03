@@ -1,4 +1,3 @@
-*.csv
 perso.ipynb
-*.parquet
-reco.ipynb
+analyse.ipynb
+df_film.csv
